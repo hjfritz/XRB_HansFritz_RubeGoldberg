@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class WaterSpout : MonoBehaviour
 {
-    [SerializeField] private int _speed;
-
+    [SerializeField] private float _speed;
+    
     private GameObject currentBoulder;
+    private bool boulderUp = false;
     
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,10 @@ public class WaterSpout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (boulderUp)
+        {
+            currentBoulder.GetComponent<Rigidbody>().AddForce(Vector3.up * 9.81f * _speed, ForceMode.Acceleration);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +30,7 @@ public class WaterSpout : MonoBehaviour
         if (other.CompareTag("Boulder"))
         {
             other.GetComponent<Rigidbody>().useGravity = false;
-            other.GetComponent<Rigidbody>().AddForce(Vector3.up * 9.81f * _speed, ForceMode.Acceleration);
+            boulderUp = true;
             currentBoulder = other.gameObject;
         }
     }
@@ -38,6 +42,7 @@ public class WaterSpout : MonoBehaviour
             other.GetComponent<Rigidbody>().useGravity = true;
             other.GetComponent<Rigidbody>().AddForce(Vector3.left * 3, ForceMode.Impulse);
             currentBoulder = null;
+            boulderUp = false;
         }
     }
 }
