@@ -6,9 +6,12 @@ using UnityEngine;
 public class WaterSpout : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _entrance;
+    [SerializeField] private float margin;
     
     private GameObject currentBoulder;
     private bool boulderUp = false;
+    private bool atEntrance = false;
     
     // Start is called before the first frame update
     void Start()
@@ -21,7 +24,19 @@ public class WaterSpout : MonoBehaviour
     {
         if (boulderUp)
         {
-            currentBoulder.GetComponent<Rigidbody>().AddForce(Vector3.up * 9.81f * _speed, ForceMode.Acceleration);
+            if (Vector3.Distance(currentBoulder.transform.position, _entrance.position) < margin)
+            {
+                atEntrance = true;
+            }
+
+            if (atEntrance)
+            {
+                currentBoulder.GetComponent<Rigidbody>().AddForce(Vector3.up * 9.81f * _speed, ForceMode.Acceleration);
+            }
+            else
+            {
+                currentBoulder.transform.position = _entrance.position;
+            }
         }
     }
 
@@ -43,6 +58,7 @@ public class WaterSpout : MonoBehaviour
             other.GetComponent<Rigidbody>().AddForce(Vector3.left * 3, ForceMode.Impulse);
             currentBoulder = null;
             boulderUp = false;
+            atEntrance = false;
         }
     }
 }
