@@ -42,8 +42,9 @@ public class WaterSpout : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boulder"))
+        if (other.CompareTag("Boulder") || other.CompareTag("head"))
         {
+            other.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.GetComponent<Rigidbody>().useGravity = false;
             boulderUp = true;
             currentBoulder = other.gameObject;
@@ -52,7 +53,7 @@ public class WaterSpout : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Boulder"))
+        if (other.CompareTag("Boulder") || other.CompareTag("head"))
         {
             other.GetComponent<Rigidbody>().useGravity = true;
             other.GetComponent<Rigidbody>().AddForce(Vector3.left * 3, ForceMode.Impulse);

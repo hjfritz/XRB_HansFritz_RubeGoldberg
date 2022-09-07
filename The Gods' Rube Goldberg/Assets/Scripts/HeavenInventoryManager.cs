@@ -31,36 +31,51 @@ public class HeavenInventoryManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("head") || CompareTag("rails") || CompareTag("spout"))
+        if (other.CompareTag("head") || other.CompareTag("rails") || other.CompareTag("spout"))
         {
-            //other.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void CreateHead()
     {
-        if (other.CompareTag("head"))
-        {
-            var pos = other.transform;
-            other.gameObject.SetActive(false);
-            Instantiate(_eIHeadPrefab, pos);
-            Instantiate(_eIHeadInvPrefab, _eIHeadInvPosition);
-        }
-        
-        if (other.CompareTag("rails"))
-        {
-            var pos = other.transform;
-            other.gameObject.SetActive(false);
-            Instantiate(_railsPrefab, pos);
-            Instantiate(_railsInvPrefab, _railsInvPosition);
-        }
-        
-        if (other.CompareTag("spout"))
-        {
-            var pos = other.transform;
-            other.gameObject.SetActive(false);
-            Instantiate(_waterSpoutPrefab, pos);
-            Instantiate(_waterSpoutInvPrefab, _waterSpoutInvPosition);
-        }
+        Instantiate(_eIHeadPrefab, _eIHeadInvPosition);
     }
+    
+    public void CreateSpout()
+    {
+        Instantiate(_waterSpoutPrefab, _waterSpoutInvPosition);
+    }
+    
+    public void CreateRails()
+    {
+        Instantiate(_railsPrefab, _railsInvPosition);
+    }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("head"))
+    //    {
+    //        var pos = other.transform;
+    //        other.gameObject.SetActive(false);
+    //        Instantiate(_eIHeadPrefab, );
+    //        Instantiate(_eIHeadInvPrefab, _eIHeadInvPosition);
+    //    }
+    //    
+    //    if (other.CompareTag("rails"))
+    //    {
+    //        var pos = other.transform;
+    //        other.gameObject.SetActive(false);
+    //        Instantiate(_railsPrefab, pos);
+    //        Instantiate(_railsInvPrefab, _railsInvPosition);
+    //    }
+    //    
+    //    if (other.CompareTag("spout"))
+    //    {
+    //        var pos = other.transform;
+    //        other.gameObject.SetActive(false);
+    //        Instantiate(_waterSpoutPrefab, pos);
+    //        Instantiate(_waterSpoutInvPrefab, _waterSpoutInvPosition);
+    //    }
+    //}
 }

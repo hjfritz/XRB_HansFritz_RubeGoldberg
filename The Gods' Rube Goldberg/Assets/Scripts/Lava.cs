@@ -6,6 +6,7 @@ using UnityEngine;
 public class Lava : MonoBehaviour
 {
     [SerializeField] private ParticleSystem lavaFlow;
+    [SerializeField] private AudioSource _eruption;
     
     // Start is called before the first frame update
     void Start()
@@ -22,5 +23,6 @@ public class Lava : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         lavaFlow.Play();
+        _eruption.Play();
     }
 }
