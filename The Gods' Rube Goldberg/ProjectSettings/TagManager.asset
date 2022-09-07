@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boulder
+  - head
+  - rails
+  - spout
   layers:
   - Default
   - TransparentFX
